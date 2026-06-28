@@ -1,0 +1,29 @@
+package com.app.todoapp.controller;
+
+import com.app.todoapp.dto.LoginRequest;
+import com.app.todoapp.dto.RegisterRequest;
+import com.app.todoapp.services.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(
+            @Valid @RequestBody RegisterRequest request) {
+
+        userService.register(request);
+
+        return ResponseEntity.ok("User registered successfully");
+    }
+
+}
